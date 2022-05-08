@@ -17,50 +17,64 @@ class GildedRose {
             final boolean backstage = item.name.equals("Backstage passes to a TAFKAL80ETC concert");
             final boolean sulfuras = item.name.equals("Sulfuras, Hand of Ragnaros");
             if (aged_brie) {
+                handleAgedBire(item);
+            } else if (backstage) {
+                handleBackstage(item);
+            } else if (sulfuras) {
+                handdleSulfuras(item);
+            } else {
+                handleCausal(item);
+            }
+        }
+    }
+
+
+    private void handleCausal(Item item) {
+        if (item.quality > 0) {
+            item.quality = item.quality - 1;
+        }
+        item.sellIn = item.sellIn - 1;
+        if (item.sellIn < 0) {
+            if (item.quality > 0) {
+                item.quality = item.quality - 1;
+            }
+        }
+    }
+
+    private void handdleSulfuras(Item item) {
+    }
+
+    private void handleBackstage(Item item) {
+        if (item.quality < 50) {
+            item.quality = item.quality + 1;
+            if (item.sellIn < 11) {
                 if (item.quality < 50) {
                     item.quality = item.quality + 1;
                 }
-                item.sellIn = item.sellIn - 1;
+            }
 
-                if (item.sellIn < 0) {
-                    if (item.quality < 50) {
-                        item.quality = item.quality + 1;
-                    }
+            if (item.sellIn < 6) {
+                if (item.quality < 50) {
+                    item.quality = item.quality + 1;
                 }
-            } else {
-                if (backstage) {
-                    if (item.quality < 50) {
-                        item.quality = item.quality + 1;
-                        if (item.sellIn < 11) {
-                            if (item.quality < 50) {
-                                item.quality = item.quality + 1;
-                            }
-                        }
+            }
+        }
+        item.sellIn = item.sellIn - 1;
 
-                        if (item.sellIn < 6) {
-                            if (item.quality < 50) {
-                                item.quality = item.quality + 1;
-                            }
-                        }
-                    }
-                    item.sellIn = item.sellIn - 1;
+        if (item.sellIn < 0) {
+            item.quality = 0;
+        }
+    }
 
-                    if (item.sellIn < 0) {
-                        item.quality = 0;
-                    }
-                } else if (sulfuras) {
+    private void handleAgedBire(Item item) {
+        if (item.quality < 50) {
+            item.quality = item.quality + 1;
+        }
+        item.sellIn = item.sellIn - 1;
 
-                } else {
-                    if (item.quality > 0) {
-                        item.quality = item.quality - 1;
-                    }
-                    item.sellIn = item.sellIn - 1;
-                    if (item.sellIn < 0) {
-                        if (item.quality > 0) {
-                            item.quality = item.quality - 1;
-                        }
-                    }
-                }
+        if (item.sellIn < 0) {
+            if (item.quality < 50) {
+                item.quality = item.quality + 1;
             }
         }
     }
