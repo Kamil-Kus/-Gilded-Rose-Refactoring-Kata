@@ -16,18 +16,32 @@ class GildedRose {
             final boolean aged_brie = item.name.equals("Aged Brie");
             final boolean backstage = item.name.equals("Backstage passes to a TAFKAL80ETC concert");
             final boolean sulfuras = item.name.equals("Sulfuras, Hand of Ragnaros");
+            final boolean conjured = item.name.contains("Conjured");
             if (aged_brie) {
                 handleAgedBire(item);
             } else if (backstage) {
                 handleBackstage(item);
             } else if (sulfuras) {
-                handdleSulfuras(item);
+                handleSulfurs(item);
+            } else if (conjured) {
+                handleConjured(item);
             } else {
                 handleCausal(item);
             }
         }
     }
 
+    private void handleConjured(Item item) {
+        if (item.quality > 0) {
+            item.quality = item.quality - 2;
+        }
+        item.sellIn = item.sellIn - 1;
+        if (item.sellIn < 0) {
+            if (item.quality > 0) {
+                item.quality = item.quality - 2;
+            }
+        }
+    }
 
     private void handleCausal(Item item) {
         if (item.quality > 0) {
@@ -41,7 +55,7 @@ class GildedRose {
         }
     }
 
-    private void handdleSulfuras(Item item) {
+    private void handleSulfurs(Item item) {
     }
 
     private void handleBackstage(Item item) {

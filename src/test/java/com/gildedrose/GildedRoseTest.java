@@ -23,11 +23,12 @@ class GildedRoseTest {
     }
 
     @Test
-    void foo() {
-        Item[] items = new Item[]{new Item("foo", 0, 0)};
+    void conjuredItem() {
+        Item[] items = new Item[]{new Item("Conjured water", 3, 4)};
         GildedRose app = new GildedRose(items);
         app.updateQuality();
-        assertEquals("foo", app.items[0].name);
+        assertEquals(2, app.items[0].quality);
     }
+
 
 }
